@@ -30,6 +30,15 @@ function help() {
 }
 
 function loadCSV ($filename) {
+  $file = fopen ($filename, "r");
+  if (!$file) {
+    return false;
+  }
+  $data = fgetcsv ($file);
+
+  if (!$data) {
+    return false;
+  }
 
 }
 
@@ -114,6 +123,12 @@ function run() {
     return;
   }
 
+  $data = loadCSV ($CSVfile);
+
+  if (!$CSVfile) {
+    print "Could not load CSV\r\n";
+    return;
+  }
 
 }
 
