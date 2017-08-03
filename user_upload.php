@@ -1,7 +1,15 @@
 <?php
+/*
 
+Author: Jack Stinchcombe
+email: stinchjack@gmail.com
+
+*/
 
 function help() {
+  /*
+    Help output function
+  */
 
   $helpText = "--file [csv file name] - this is the name of the CSV to be parsed
   --create_table - this will cause the MySQL users table to be built (and no further
@@ -19,5 +27,16 @@ function help() {
 
 }
 
+function loadCSV ($filename) {
+
+}
+
+function connectDB ($username, $password, $host) {
+  
+}
+
+function createTable() {
+
+}
 
 ?>
