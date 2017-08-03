@@ -51,19 +51,46 @@ function run() {
 
   if (array_key_exists ("help", $options)) {
     // if help in command line options, display help then exit
-
     help();
-
     return;
-
   }
 
+
+  //process file name from command line
   if (array_key_exists  ("file", $options)) {
     $CSVfile = options("file");
   }
   else {
     $CSVfile = "users.csv"; // default file name to use if none specified
   }
+
+  // get MYSQL user name from command line
+  if (array_key_exists  ("u", $options)) {
+    $DBuser = options("u");
+  }
+
+
+  // get MYSQL user name from command line
+  if (array_key_exists  ("p", $options)) {
+    $DBpassword = options("p");
+  }
+
+
+  // get MYSQL hostname from command line
+  if (array_key_exists  ("h", $options)) {
+    $DBhost= options("h");
+  }
+
+
+  // get dry_run flag from
+  $dry_run = array_key_exists  ("dry_run", $options);
+
+
+  // get create_table flag from
+  $create_table = array_key_exists  ("dry_run", $options);
+
+
+
 }
 
 ?>
