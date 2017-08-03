@@ -20,7 +20,7 @@ function help() {
   -u - MySQL username
   -p - MySQL password
   -h - MySQL host
-  --help – output help ";
+  --help – output this help ";
 
   print $helpText;
 
@@ -32,11 +32,18 @@ function loadCSV ($filename) {
 }
 
 function connectDB ($username, $password, $host) {
-   
+
 }
 
 function createTable() {
 
+}
+
+function run() {
+
+  $options = getopt("f:hp:");
+
+  print_r (options);
 }
 
 ?>
