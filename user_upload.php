@@ -6,6 +6,8 @@ email: stinchjack@gmail.com
 
 */
 
+run();
+
 function help() {
   /*
     Help output function
@@ -41,9 +43,9 @@ function createTable() {
 
 function run() {
 
-  $options = getopt("f:hp:");
+  $options = getopt("u:p:h:",  array("dry_run", "file:", "create_table"));
 
-  print_r (options);
+  print_r ($options);
 }
 
 ?>
