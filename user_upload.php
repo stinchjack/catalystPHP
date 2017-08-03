@@ -32,7 +32,7 @@ function loadCSV ($filename) {
 }
 
 function connectDB ($username, $password, $host) {
-  
+   
 }
 
 function createTable() {
