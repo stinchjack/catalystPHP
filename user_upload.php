@@ -35,9 +35,11 @@ function loadCSV ($filename) {
 
 function connectDB ($username, $password, $host) {
 
+
   $link = mysqli_connect($host, $username, $password, "catalystUsers");
 
   if (!$link) {
+      //print ("ASDASDSAD $username $password $host \r\n");
       echo "Error: Unable to connect to MySQL." . PHP_EOL;
       echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
       echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
@@ -105,7 +107,7 @@ function run() {
   // get create_table flag from
   $create_table = array_key_exists  ("dry_run", $options);
 
-  $DBconn = connectDB ($DBhost, $DBpassword, $DBhost);
+  $DBconn = connectDB ($DBuser, $DBpassword, $DBhost);
 
   if (!$DBconn) {
     print "Could not connect to DB\r\n";
