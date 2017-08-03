@@ -43,9 +43,25 @@ function createTable() {
 
 function run() {
 
-  $options = getopt("u:p:h:",  array("dry_run", "file:", "create_table"));
+  $options = getopt("u:p:h:",  array("dry_run", "file:", "create_table", "help"));
 
   print_r ($options);
+
+  if (in_array ("help", $options)) {
+    // if help in command line options, display help then exit
+
+    help();
+
+    return;
+
+  }
+
+  if (in_array ("file", $options)) {
+    $CSVfile = options("file");
+  }
+  else {
+    $CSVfile = "users.csv"; // default file name to use if none specified
+  }
 }
 
 ?>
