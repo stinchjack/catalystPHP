@@ -93,6 +93,9 @@ function run() {
   if (array_key_exists  ("h", $options)) {
     $DBhost= $options["h"];
   }
+  else {
+    $DBhost= "localhost"; // default if no host specified
+  }
 
 
   // get dry_run flag from
