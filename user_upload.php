@@ -13,7 +13,7 @@ function help() {
     Help output function
   */
 
-  $helpText = "--file [csv file name] - this is the name of the CSV to be parsed
+  $helpText = "\r\n--file [csv file name] - this is the name of the CSV to be parsed
   --create_table - this will cause the MySQL users table to be built (and no further
   action will be taken)
   --dry_run - this will be used with the --file directive in the instance that we want to run the
@@ -22,7 +22,7 @@ function help() {
   -u - MySQL username
   -p - MySQL password
   -h - MySQL host
-  --help – output this help ";
+  --help – output this help \r\n";
 
   print $helpText;
 
@@ -43,11 +43,13 @@ function createTable() {
 
 function run() {
 
+  /*
+  The main function of the script
+  */
+
   $options = getopt("u:p:h:",  array("dry_run", "file:", "create_table", "help"));
 
-  print_r ($options);
-
-  if (in_array ("help", $options)) {
+  if (array_key_exists ("help", $options)) {
     // if help in command line options, display help then exit
 
     help();
@@ -56,7 +58,7 @@ function run() {
 
   }
 
-  if (in_array ("file", $options)) {
+  if (array_key_exists  ("file", $options)) {
     $CSVfile = options("file");
   }
   else {
