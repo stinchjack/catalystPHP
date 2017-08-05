@@ -106,6 +106,15 @@ function connectDB ($username, $password, $host, $dbname) {
 
 }
 
+function checkDB($link, $DBname) {
+
+}
+
+
+function checkTable($link, $DBtable) {
+
+}
+
 function createTable() {
 
 }
