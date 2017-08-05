@@ -22,6 +22,7 @@ function help() {
   -u - MySQL username
   -p - MySQL password
   -h - MySQL host
+  -- dbname - specify a DB name
   --help – output this help \r\n";
 
   print $helpText;
@@ -153,6 +154,14 @@ function run() {
     $DBhost= "localhost"; // default if no host specified
   }
 
+  // get MYSQL Database from command line
+  if (array_key_exists  ("dbname", $options)) {
+    $DBname= $options["dbname"];
+  }
+  else {
+    $DBname= "catalystUsers"; // default if no DB name specified
+  }
+
 
   // get dry_run flag from
   $dry_run = array_key_exists  ("dry_run", $options);
@@ -169,7 +178,7 @@ function run() {
 
 
   // Connect to MySQL
-  $DBconn = connectDB ($DBuser, $DBpassword, $DBhost);
+  $DBconn = connectDB ($DBuser, $DBpassword, $DBhost, $DBname);
 
   if (!$DBconn) {
     print "Could not connect to DB\r\n";
