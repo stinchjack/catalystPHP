@@ -51,6 +51,30 @@ function loadCSV ($filename) {
 
   fclose ($file);
 
+  return $rows;
+}
+
+function cleanData ($rows) {
+  // Cleans and validates data from CSV
+
+  // Assumes first row is column headers
+  array_shift ($rows);
+
+  $cleanedRows = array();
+
+  foreach ($rows as $row) {
+
+    // Make sure first name and surname fields have first letter capital
+    $row[0] =  ucfirst (trim(strtolower($row[0])));
+    $row[1] =  ucfirst (trim(strtolower($row[1])));
+
+    array_push ($cleanedRows, Array ($row));
+  }
+
+
+  var_dump($cleanedRows);
+
+  return $cleanedRows;
 }
 
 function connectDB ($username, $password, $host) {
@@ -133,6 +157,8 @@ function run() {
     return;
   }
 
+
+  // Connect to MySQL
   $DBconn = connectDB ($DBuser, $DBpassword, $DBhost);
 
   if (!$DBconn) {
@@ -140,12 +166,17 @@ function run() {
     return;
   }
 
+
+  // Load CSV data
   $data = loadCSV ($CSVfile);
 
   if (!$CSVfile) {
     print "Could not load CSV $CSVfile \r\n";
     return;
   }
+
+  $data = cleanData ($data);
+
 
 }
 
