@@ -120,27 +120,27 @@ function checkTable($link, $DBtable) {
 }
 
 function createTable($link) {
+  // Creates a table 'users' in the database with
+  // name, surname, and email fields.
 
-
-  $sql =  "CREATE TABLE users  
+  $sql =  "CREATE TABLE users
       (
          name VARCHAR(40),
          surname VARCHAR(40),
          email VARCHAR(40) UNIQUE
       );";
 
-  print_r ($sql);
-
   $result = mysqli_query ($link,  $sql);
 
 
-  var_dump ($result);
-
   if ($result) {
-    print ("\r\nTable users created \r\n ");
+    print ("\r\nTable users created " . PHP_EOL);
     return true;
   }
   else {
+
+    //display errror output
+
     print "\r\nCould not create table\r\n";
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
