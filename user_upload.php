@@ -44,15 +44,10 @@ function loadCSV ($filename) {
   $rows = array();
 
   while (($data = fgetcsv($file, 1000, ",")) !== FALSE) {
-      $num = count($data);
-      echo "<p> $num fields in line $row: <br /></p>\n";
-      $row++;
 
       array_push ($rows, $data);
 
   }
-
-  print_r ($array);
 
   fclose ($file);
 
@@ -148,7 +143,7 @@ function run() {
   $data = loadCSV ($CSVfile);
 
   if (!$CSVfile) {
-    print "Could not load CSV\r\n";
+    print "Could not load CSV $CSVfile \r\n";
     return;
   }
 
