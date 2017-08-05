@@ -108,7 +108,7 @@ function connectDB ($username, $password, $host, $dbname) {
 
 function checkTable($link, $DBtable) {
   //check specified DB table exists
-  $result = mysqli_query ($link,  "SELECT 1 FROM testtable LIMIT 1;");
+  $result = mysqli_query ($link,  "SELECT 1 FROM users LIMIT 1;");
 
   if (!$result) {
     print "\r\n Table $DBtable does not exist\r\n";
