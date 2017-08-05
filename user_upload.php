@@ -30,20 +30,36 @@ function help() {
 }
 
 function loadCSV ($filename) {
+
+  if (!$filename) {
+    return false;
+  }
+
+  /*Load data from CSV*/
   $file = fopen ($filename, "r");
   if (!$file) {
     return false;
   }
-  $data = fgetcsv ($file);
 
-  if (!$data) {
-    return false;
+  $rows = array();
+
+  while (($data = fgetcsv($file, 1000, ",")) !== FALSE) {
+      $num = count($data);
+      echo "<p> $num fields in line $row: <br /></p>\n";
+      $row++;
+
+      array_push ($rows, $data);
+
   }
+
+  print_r ($array);
+
+  fclose ($file);
 
 }
 
 function connectDB ($username, $password, $host) {
-
+  /*Connect to Database*/
 
   $link = mysqli_connect($host, $username, $password, "catalystUsers");
 
@@ -115,6 +131,12 @@ function run() {
 
   // get create_table flag from
   $create_table = array_key_exists  ("create_table", $options);
+
+  if (!$DBuser || !$DBpassword) {
+    print "\r\n MySQL username or password not set \r\n";
+    help();
+    return;
+  }
 
   $DBconn = connectDB ($DBuser, $DBpassword, $DBhost);
 
