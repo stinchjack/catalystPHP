@@ -64,11 +64,20 @@ function cleanData ($rows) {
 
   foreach ($rows as $row) {
 
-    // Make sure first name and surname fields have first letter capital
-    $row[0] =  ucfirst (trim(strtolower($row[0])));
-    $row[1] =  ucfirst (trim(strtolower($row[1])));
+    $row[2] = trim ($row[2]); // trim spaces so filter_var can do its job
+    if (filter_var($row[2], FILTER_VALIDATE_EMAIL)) {
 
-    array_push ($cleanedRows, Array ($row));
+      // Make sure first name and surname fields have first letter capital
+      $row[0] =  ucfirst (trim(strtolower($row[0])));
+      $row[1] =  ucfirst (trim(strtolower($row[1])));
+
+
+      array_push ($cleanedRows, Array ($row));
+    }
+
+    else {
+      print "\r\n Email address $row[2] not valid - this row will not be inserted into table  \r\n";
+    }
   }
 
 
