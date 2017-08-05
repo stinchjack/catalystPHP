@@ -121,6 +121,13 @@ function checkTable($link, $DBtable) {
 
 function createTable() {
 
+
+  $sql =  "
+    CREATE TABLE users IF NOT EXISTS
+  ";
+
+  $result = mysqli_query ($link,  $sql);
+
 }
 
 function run() {
@@ -195,6 +202,7 @@ function run() {
 
   if (!$DBconn) {
     print "Could not connect to DB\r\n";
+
     return;
   }
 
@@ -208,6 +216,20 @@ function run() {
     return;
   }
 
+  //if --create_table specified, create the table if it doesn't exist
+  if (!$tableExists && $create_table) {
+
+    $result = createTable();
+    if ($result) {
+      print "\r\nTable created - no data inserted\r\n";
+    }
+    else {
+      print "\r\nCould not create table\r\n";
+      echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+      echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+    }
+    return;
+  }
 
   // Load CSV data
   $data = loadCSV ($CSVfile);
