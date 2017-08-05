@@ -106,13 +106,17 @@ function connectDB ($username, $password, $host, $dbname) {
 
 }
 
-function checkDB($link, $DBname) {
-
-}
-
-
 function checkTable($link, $DBtable) {
+  //check specified DB table exists
+  $result = mysqli_query ($link,  "SELECT 1 FROM testtable LIMIT 1;");
 
+  if (!$result) {
+    print "\r\n Table $DBtable does not exist\r\n";
+    return false;
+  }
+  else {
+    return true;
+  }
 }
 
 function createTable() {
@@ -194,6 +198,16 @@ function run() {
     return;
   }
 
+  //Check DB table exists
+  $tableExists = checkTable ($DBconn, "users");
+
+
+  // fail if table does not exist and table if not to be created
+  if (!$tableExists && !$create_table) {
+    help();
+    return;
+  }
+
 
   // Load CSV data
   $data = loadCSV ($CSVfile);
@@ -205,6 +219,7 @@ function run() {
 
   // Clean CSV data
   $data = cleanData ($data);
+
 
 
 }
