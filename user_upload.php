@@ -119,14 +119,33 @@ function checkTable($link, $DBtable) {
   }
 }
 
-function createTable() {
+function createTable($link) {
 
 
-  $sql =  "
-    CREATE TABLE users IF NOT EXISTS
-  ";
+  $sql =  "CREATE TABLE users  
+      (
+         name VARCHAR(40),
+         surname VARCHAR(40),
+         email VARCHAR(40) UNIQUE
+      );";
+
+  print_r ($sql);
 
   $result = mysqli_query ($link,  $sql);
+
+
+  var_dump ($result);
+
+  if ($result) {
+    print ("\r\nTable users created \r\n ");
+    return true;
+  }
+  else {
+    print "\r\nCould not create table\r\n";
+    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+    return false;
+  }
 
 }
 
@@ -219,15 +238,11 @@ function run() {
   //if --create_table specified, create the table if it doesn't exist
   if (!$tableExists && $create_table) {
 
-    $result = createTable();
+    $result = createTable($DBconn);
     if ($result) {
       print "\r\nTable created - no data inserted\r\n";
     }
-    else {
-      print "\r\nCould not create table\r\n";
-      echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-      echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-    }
+
     return;
   }
 
