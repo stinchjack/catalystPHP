@@ -55,7 +55,8 @@ function loadCSV ($filename) {
 }
 
 function cleanData ($rows) {
-  // Cleans and validates data from CSV
+  // Cleans and validates data from CSV - assumes items in each row is first
+  // name, surname and email address
 
   // Assumes first row is column headers
   array_shift ($rows);
@@ -65,6 +66,8 @@ function cleanData ($rows) {
   foreach ($rows as $row) {
 
     $row[2] = trim ($row[2]); // trim spaces so filter_var can do its job
+
+    // Check for email address and skip row if not valid
     if (filter_var($row[2], FILTER_VALIDATE_EMAIL)) {
 
       // Make sure first name and surname fields have first letter capital
@@ -80,17 +83,15 @@ function cleanData ($rows) {
     }
   }
 
-
-  var_dump($cleanedRows);
-
   return $cleanedRows;
 }
 
-function connectDB ($username, $password, $host) {
+function connectDB ($username, $password, $host, $dbname) {
   /*Connect to Database*/
 
-  $link = mysqli_connect($host, $username, $password, "catalystUsers");
+  $link = mysqli_connect($host, $username, $password, $dbname);
 
+  //Display error info on failure
   if (!$link) {
 
       echo "Error: Unable to connect to MySQL." . PHP_EOL;
@@ -115,7 +116,7 @@ function run() {
   */
 
   //get options
-  $options = getopt("u:p:h:",  array("dry_run", "file:", "create_table", "help"));
+  $options = getopt("u:p:h:",  array("dry_run", "file:", "create_table", "help", "dbname:"));
 
   if (array_key_exists ("help", $options)) {
     // if help in command line options, display help then exit
@@ -184,6 +185,7 @@ function run() {
     return;
   }
 
+  // Clean CSV data
   $data = cleanData ($data);
 
 
