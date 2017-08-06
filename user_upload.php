@@ -2,7 +2,8 @@
 /*
 
 Author: Jack Stinchcombe
-email: stinchjack@gmail.com
+Email: stinchjack@gmail.com
+Updated: 6 August 20127
 
 */
 
@@ -325,7 +326,7 @@ function run() {
   $result = insertData($DBconn, $data);
 
   if ($result) {
-    print " $result CSV rows processed " . PHP_EOL;
+    print " $result CSVvrows processed " . PHP_EOL;
   }
 }
 
