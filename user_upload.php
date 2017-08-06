@@ -75,7 +75,6 @@ function cleanData ($rows) {
       $row[0] =  ucfirst (trim(strtolower($row[0])));
       $row[1] =  ucfirst (trim(strtolower($row[1])));
 
-
       array_push ($cleanedRows, $row);
     }
 
@@ -119,10 +118,30 @@ function checkTable($link, $DBtable) {
   }
 }
 
-function createTable($link) {
-  // Creates a table 'users' in the database with
-  // name, surname, and email fields.
+function createTable($link, $tableExists) {
 
+  // If it exsits, remove so it can reuilt
+  if ($tableExists) {
+
+    print (PHP_EOL . "removing existing table 'users' " . PHP_EOL);
+
+    $sql = "drop table users;";
+    $result = mysqli_query ($link,  $sql);
+    if ($result) {
+      print (PHP_EOL . "Table users dropped " . PHP_EOL);
+    }
+    else {
+      //display error output
+      print PHP_EOL . "Could not drop table" . PHP_EOL;
+      echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+      echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+      return false;
+    }
+  }
+
+
+  // SQL to creates a table 'users' in the database with
+  // name, surname, and email fields.\
   $sql =  "CREATE TABLE users
       (
          name VARCHAR(40),
@@ -132,21 +151,19 @@ function createTable($link) {
 
   $result = mysqli_query ($link,  $sql);
 
-
   if ($result) {
     print (PHP_EOL . "Table users created " . PHP_EOL);
     return true;
   }
   else {
-
     //display error output
-
     print PHP_EOL . "Could not create table" . PHP_EOL;
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
     return false;
   }
 
+  return $result;
 }
 
 
@@ -214,12 +231,10 @@ function run() {
     $DBuser = $options["u"];
   }
 
-
   // get MYSQL user name from command line
   if (array_key_exists  ("p", $options)) {
     $DBpassword = $options["p"];
   }
-
 
   // get MYSQL hostname from command line
   if (array_key_exists  ("h", $options)) {
@@ -249,19 +264,16 @@ function run() {
     return;
   }
 
-
   // Connect to MySQL
   $DBconn = connectDB ($DBuser, $DBpassword, $DBhost, $DBname);
 
   if (!$DBconn) {
     print "Could not connect to DB" . PHP_EOL;
-
     return;
   }
 
   //Check DB table exists
   $tableExists = checkTable ($DBconn, "users");
-
 
   // fail if table does not exist and table if not to be created
   if (!$tableExists && !$create_table) {
@@ -269,22 +281,20 @@ function run() {
     return;
   }
 
-  //if --create_table specified, create the table if it doesn't exist
-  if (!$tableExists && $create_table) {
-
-    $result = createTable($DBconn);
-    if ($result) {
-      print PHP_EOL . "No data inserted" . PHP_EOL;
-    }
-  }
-
   // print error if users table already exists
   if ($tableExists && $create_table) {
     print PHP_EOL . "Table 'users' already exists " . PHP_EOL;
   }
 
-  //Always stop when create_table flag set
+  //if --create_table specified, create the table if it doesn't exist
   if ($create_table) {
+
+    $result = createTable($DBconn, $tableExists);
+
+    if ($result) {
+      print PHP_EOL . "create_table flag specified, no data inserted" . PHP_EOL;
+    }
+
     return;
   }
 
@@ -303,7 +313,6 @@ function run() {
     print PHP_EOL . "Dry run - no data inserted into table " . PHP_EOL;
     return;
   }
-
 
   // Insert data into table
   $result = insertData($DBconn, $data);
