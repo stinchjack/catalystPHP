@@ -1,11 +1,11 @@
-user_upload.php
+#h1 user_upload.php
 
 Requirements:
 - PHP 7.0, mysqli module
 
 Installation:
 
-- Install PHP MySQL module if not already installed.
+- Install PHP MySQL module if not already installed (e.g. sudo apt-get install php7.0-mysqli )
 - Create a MySQL database.
 
 Example usage:
@@ -13,7 +13,7 @@ Example usage:
 
 
 Command line options:
-
+<pre>
 --file [csv file name] - this is the name of the CSV to be parsed (default users.csv if not specified)
 --create_table - this will cause the MySQL users table to be built (and no further
 action will be taken)
@@ -25,3 +25,4 @@ be altered.
 -h - MySQL host (default localhost if not specified)
 -- dbname - specify a DB name (default catalystUsers if not specified)
 --help – output this help
+</pre>
