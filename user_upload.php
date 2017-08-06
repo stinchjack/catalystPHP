@@ -139,7 +139,7 @@ function createTable($link) {
   }
   else {
 
-    //display errror output
+    //display error output
 
     print "\r\nCould not create table\r\n";
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
@@ -152,15 +152,35 @@ function createTable($link) {
 function insertData ($link, $rows) {
   //inserts each row of data into the table
 
+  var_dump ($rows);
+
+  $count = 0;
   foreach ($rows as $row) {
 
     //escape each value to avoid SQL injection problems
-    $name = mysql_escape_string($link, $row[0]);
-    $surnamename = mysql_escape_string($link, $row[1]);
-    $email = mysql_escape_string($link, $row[2]);
+    $name = mysqli_real_escape_string($link, $row[0]);
+    $surname = mysqli_escape_string($link, $row[1]);
+    $email = mysqli_escape_string($link, $row[2]);
+
+
+    //create SQL and execute
+    $sql = 'insert into users (name, surname, email) values ( "'. $name .'", "'. $surname .'"", "'. $email .'") ';
+
+    $result = mysqli_query ($link,  $sql);
+
+    if (!$result)  {
+      //display error output
+
+      print "\r\nCould insert data into table\r\n";
+      echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+      echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+      return false;
+    }
+    $count++;
 
   }
 
+  return $count;
 }
 
 function run() {
@@ -276,13 +296,20 @@ function run() {
 
   // Clean CSV data
   $data = cleanData ($data);
-
   //Stop if dry_run flag set.
   if ($dry_run) {
     print "\r\n Dry run - no data inserted into table \r\n";
     return;
   }
 
+  $result = insertData($DBconn, $data);
+
+  if ($result === false) {
+
+  }
+  else {
+    print " $result rows inserted into table \r\n";
+  }
 }
 
 ?>
