@@ -13,7 +13,7 @@ function help() {
     Help output function
   */
 
-  $helpText = "\r\n--file [csv file name] - this is the name of the CSV to be parsed
+  $helpText = PHP_EOL . "--file [csv file name] - this is the name of the CSV to be parsed
   --create_table - this will cause the MySQL users table to be built (and no further
   action will be taken)
   --dry_run - this will be used with the --file directive in the instance that we want to run the
@@ -23,7 +23,7 @@ function help() {
   -p - MySQL password
   -h - MySQL host
   -- dbname - specify a DB name
-  --help – output this help \r\n";
+  --help – output this help " . PHP_EOL;
 
   print $helpText;
 
@@ -80,7 +80,7 @@ function cleanData ($rows) {
     }
 
     else {
-      print "\r\n Email address $row[2] not valid - this row will not be inserted into table  \r\n";
+      print PHP_EOL . "Email address $row[2] not valid - this row will not be inserted into table  " . PHP_EOL;
     }
   }
 
@@ -111,7 +111,7 @@ function checkTable($link, $DBtable) {
   $result = mysqli_query ($link,  "SELECT 1 FROM users LIMIT 1;");
 
   if (!$result) {
-    print "\r\n Table $DBtable does not exist\r\n";
+    print PHP_EOL . "Table $DBtable does not exist" . PHP_EOL;
     return false;
   }
   else {
@@ -134,20 +134,21 @@ function createTable($link) {
 
 
   if ($result) {
-    print ("\r\nTable users created " . PHP_EOL);
+    print (PHP_EOL . "Table users created " . PHP_EOL);
     return true;
   }
   else {
 
     //display error output
 
-    print "\r\nCould not create table\r\n";
+    print PHP_EOL . "Could not create table" . PHP_EOL;
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
     return false;
   }
 
 }
+
 
 function insertData ($link, $rows) {
   //inserts each row of data into the table
@@ -160,21 +161,23 @@ function insertData ($link, $rows) {
     $email = mysqli_escape_string($link, $row[2]);
 
 
-    //create SQL insert statement and execute
+    /* create SQL insert statement and execute
+      'insert ignore' used to ignore insertions which fail due to unique key
+    */
     $sql = 'insert ignore into users (name, surname, email) values ( "'. $name .'", "'. $surname .'", "'. $email .'") ';
-
-    var_dump ($sql);
 
     $result = mysqli_query ($link,  $sql);
 
     if (!$result)  {
       //display error output
 
-      print "\r\nCould insert data into table\r\n";
+      print PHP_EOL . "Could insert data into table" . PHP_EOL;
       echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
       echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
       return false;
     }
+
+    //Count rows inserted for user output
     $count++;
 
   }
@@ -241,7 +244,7 @@ function run() {
   $create_table = array_key_exists  ("create_table", $options);
 
   if (!$DBuser || !$DBpassword) {
-    print "\r\n MySQL username or password not set \r\n";
+    print PHP_EOL . "MySQL username or password not set " . PHP_EOL;
     help();
     return;
   }
@@ -251,7 +254,7 @@ function run() {
   $DBconn = connectDB ($DBuser, $DBpassword, $DBhost, $DBname);
 
   if (!$DBconn) {
-    print "Could not connect to DB\r\n";
+    print "Could not connect to DB" . PHP_EOL;
 
     return;
   }
@@ -271,13 +274,13 @@ function run() {
 
     $result = createTable($DBconn);
     if ($result) {
-      print "\r\nTable created - no data inserted\r\n";
+      print PHP_EOL . "No data inserted" . PHP_EOL;
     }
   }
 
   // print error if users table already exists
   if ($tableExists && $create_table) {
-    print "\r\n Table 'users' already exists \r\n";
+    print PHP_EOL . "Table 'users' already exists " . PHP_EOL;
   }
 
   //Always stop when create_table flag set
@@ -289,7 +292,7 @@ function run() {
   $data = loadCSV ($CSVfile);
 
   if (!$CSVfile) {
-    print "Could not load CSV $CSVfile \r\n";
+    print "Could not load CSV $CSVfile " . PHP_EOL;
     return;
   }
 
@@ -297,17 +300,16 @@ function run() {
   $data = cleanData ($data);
   //Stop if dry_run flag set.
   if ($dry_run) {
-    print "\r\n Dry run - no data inserted into table \r\n";
+    print PHP_EOL . "Dry run - no data inserted into table " . PHP_EOL;
     return;
   }
 
+
+  // Insert data into table
   $result = insertData($DBconn, $data);
 
-  if ($result === false) {
-
-  }
-  else {
-    print " $result rows inserted into table \r\n";
+  if ($result) {
+    print " $result rows inserted into table " . PHP_EOL;
   }
 }
 
