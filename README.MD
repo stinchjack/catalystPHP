@@ -1,18 +1,22 @@
-#h1 user_upload.php
+#user_upload.php
 
-Requirements:
+## Author: Jack Stinchcombe
+### Email: stinchjack@gmail.com
+### Updated: 6 August 2017
+
+##Requirements:
 - PHP 7.0, mysqli module
 
-Installation:
+##Installation:
 
 - Install PHP MySQL module if not already installed (e.g. sudo apt-get install php7.0-mysqli )
 - Create a MySQL database.
 
-Example usage:
+##Example usage:
 - php user_upload.php -u john -p password
 
 
-Command line options:
+##Command line options:
 <pre>
 --file [csv file name] - this is the name of the CSV to be parsed (default users.csv if not specified)
 --create_table - this will cause the MySQL users table to be built (and no further
