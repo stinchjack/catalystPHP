@@ -35,8 +35,11 @@ function checkExpectedFlags ($options){
   // text if there are
 
   $expectedFlags = array ("file", "dry_run", "u", "p", "h", "help", "dbname", "create_table");
-  foreach ($options as $option) {
-    if (! array_key_exists($option, $expectedFlag)) {
+  foreach ($options as $option=>$value) {
+    if (! in_array($option, $expectedFlags)) {
+
+      var_dump ($option);
+      print_r ($expectedFlags);
       print  PHP_EOL . "Unexpected flag $option "  . PHP_EOL;
       return false;
     }
@@ -222,7 +225,8 @@ function insertData ($link, $rows) {
 
   return $count;
 }
-
+    help();
+    return;
 function run() {
 
   /*
