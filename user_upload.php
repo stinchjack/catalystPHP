@@ -30,6 +30,20 @@ function help() {
 
 }
 
+function checkExpectedFlags ($options){
+  // Checks if there are unexpected flags passed to the script and display help
+  // text if there are
+
+  $expectedFlags = array ("file", "dry_run", "u", "p", "h", "help", "dbname", "create_table");
+  foreach ($options as $option) {
+    if (! array_key_exists($option, $expectedFlag)) {
+      print  PHP_EOL . "Unexpected flag $option "  . PHP_EOL;
+      return false;
+    }
+  }
+
+}
+
 function loadCSV ($filename) {
 
   if (!$filename) {
@@ -217,6 +231,12 @@ function run() {
 
   //get options
   $options = getopt("u:p:h:",  array("dry_run", "file:", "create_table", "help", "dbname:"));
+
+  // check for unexpcted flags in command line
+  if (!checkExpectedFlags ($options)) {
+    help();
+    return;
+  }
 
   if (array_key_exists ("help", $options)) {
     // if help in command line options, display help then exit
