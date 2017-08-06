@@ -149,6 +149,20 @@ function createTable($link) {
 
 }
 
+function insertData ($link, $rows) {
+  //inserts each row of data into the table
+
+  foreach ($rows as $row) {
+
+    //escape each value to avoid SQL injection problems
+    $name = mysql_escape_string($link, $row[0]);
+    $surnamename = mysql_escape_string($link, $row[1]);
+    $email = mysql_escape_string($link, $row[2]);
+
+  }
+
+}
+
 function run() {
 
   /*
