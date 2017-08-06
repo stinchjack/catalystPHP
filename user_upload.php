@@ -79,8 +79,8 @@ function cleanData ($rows) {
     if (filter_var($row[2], FILTER_VALIDATE_EMAIL)) {
 
       // Make sure first name and surname fields have first letter capital
-      $row[0] =  ucfirst (trim(strtolower($row[0])));
-      $row[1] =  ucfirst (trim(strtolower($row[1])));
+      $row[0] =  ucfirst (trim($row[0]));
+      $row[1] =  ucfirst (trim($row[1]));
 
       array_push ($cleanedRows, $row);
     }
