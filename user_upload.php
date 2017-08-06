@@ -3,7 +3,7 @@
 
 Author: Jack Stinchcombe
 Email: stinchjack@gmail.com
-Updated: 6 August 20127
+Updated: 6 August 2017
 
 */
 
@@ -14,17 +14,16 @@ function help() {
     Help output function
   */
 
-  $helpText = PHP_EOL . "--file [csv file name] - this is the name of the CSV to be parsed
-  --create_table - this will cause the MySQL users table to be built (and no further
-  action will be taken)
-  --dry_run - this will be used with the --file directive in the instance that we want to run the
-  script but not insert into the DB. All other functions will be executed, but the database won't
-  be altered.
-  -u - MySQL username
-  -p - MySQL password
-  -h - MySQL host
-  -- dbname - specify a DB name
-  --help – output this help " . PHP_EOL;
+  $helpText = PHP_EOL . "
+   --file [csv file name] - this is the name of the CSV to be parsed (default users.csv if not specified)
+   --create_table - this will cause the MySQL users table to be built (and no further action will be taken)
+   --dry_run - this will be used with the --file directive in the instance that we want to run the script but not insert into the DB. All other functions will be executed, but the database won't be altered.
+   -u - MySQL username
+   -p - MySQL password
+   -h - MySQL host (default localhost if not specified)
+   --dbname - specify a DB name (default catalystUsers if not specified)
+   --help - output help
+  " . PHP_EOL;
 
   print $helpText;
 
