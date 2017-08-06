@@ -201,7 +201,7 @@ function insertData ($link, $rows) {
       return false;
     }
 
-    //Count rows inserted for user output
+    //Count rows processed for user output
     $count++;
 
   }
@@ -325,7 +325,7 @@ function run() {
   $result = insertData($DBconn, $data);
 
   if ($result) {
-    print " $result rows inserted /updated " . PHP_EOL;
+    print " $result CSV rows processed " . PHP_EOL;
   }
 }
 
