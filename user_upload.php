@@ -44,6 +44,7 @@ function checkExpectedFlags ($options){
       return false;
     }
   }
+  return true;
 
 }
 
@@ -225,8 +226,8 @@ function insertData ($link, $rows) {
 
   return $count;
 }
-    help();
-    return;
+
+
 function run() {
 
   /*
@@ -349,7 +350,7 @@ function run() {
   $result = insertData($DBconn, $data);
 
   if ($result) {
-    print " $result CSVvrows processed " . PHP_EOL;
+    print " $result CSV rows processed " . PHP_EOL;
   }
 }
 
