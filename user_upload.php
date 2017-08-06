@@ -151,9 +151,6 @@ function createTable($link) {
 
 function insertData ($link, $rows) {
   //inserts each row of data into the table
-
-  var_dump ($rows);
-
   $count = 0;
   foreach ($rows as $row) {
 
@@ -163,8 +160,10 @@ function insertData ($link, $rows) {
     $email = mysqli_escape_string($link, $row[2]);
 
 
-    //create SQL and execute
-    $sql = 'insert into users (name, surname, email) values ( "'. $name .'", "'. $surname .'"", "'. $email .'") ';
+    //create SQL insert statement and execute
+    $sql = 'insert ignore into users (name, surname, email) values ( "'. $name .'", "'. $surname .'", "'. $email .'") ';
+
+    var_dump ($sql);
 
     $result = mysqli_query ($link,  $sql);
 
