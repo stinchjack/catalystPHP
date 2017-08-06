@@ -36,6 +36,10 @@ function loadCSV ($filename) {
     return false;
   }
 
+  if (!file_exists($filename)) {
+    print  PHP_EOL . "$filename does not exist"  . PHP_EOL;
+    return false;
+  }
   /*Load data from CSV*/
   $file = fopen ($filename, "r");
   if (!$file) {
