@@ -9,10 +9,11 @@
 Loads a CSV file with three columns (first name, surname, and email) into a database table. Entries with duplicate email addresses or already in the table will be ignored, as the email column has a UNIQUE index.
 
 ## Assumptions
-- The input CSV needs to have exactly three columns in every row
-- The three columns of the CSV must be in the order first name, surname, and email
-- There is a header row at the first row of the CSV
-- There are no blank rows in the CSV
+- The input needs to be a comma separated value (CSV) file.
+- The input CSV needs to have exactly three columns in every row.
+- The three columns of the CSV must be in the order first name, surname, and email.
+- There is a header row at the first row of the CSV.
+- There are no blank rows in the CSV.
 
 ## Requirements:
 - PHP 7.0, mysqli module
