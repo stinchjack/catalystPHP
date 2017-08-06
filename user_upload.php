@@ -242,7 +242,15 @@ function run() {
     if ($result) {
       print "\r\nTable created - no data inserted\r\n";
     }
+  }
 
+  // print error if users table already exists
+  if ($tableExists && $create_table) {
+    print "\r\n Table 'users' already exists \r\n";
+  }
+  
+  //Always stop when create_table flag set
+  if ($create_table) {
     return;
   }
 
