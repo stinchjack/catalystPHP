@@ -76,7 +76,7 @@ function cleanData ($rows) {
       $row[1] =  ucfirst (trim(strtolower($row[1])));
 
 
-      array_push ($cleanedRows, Array ($row));
+      array_push ($cleanedRows, $row);
     }
 
     else {
