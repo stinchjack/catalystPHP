@@ -79,7 +79,7 @@ function cleanData ($rows) {
     }
 
     else {
-      print PHP_EOL . "Email address $row[2] not valid - this row will not be inserted into table  " . PHP_EOL;
+      print PHP_EOL . "Email address $row[2] is not valid - this row will not be inserted into table  " . PHP_EOL;
     }
   }
 
@@ -318,7 +318,7 @@ function run() {
   $result = insertData($DBconn, $data);
 
   if ($result) {
-    print " $result rows inserted into table " . PHP_EOL;
+    print " $result rows inserted /updated " . PHP_EOL;
   }
 }
 
