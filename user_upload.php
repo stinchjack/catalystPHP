@@ -39,6 +39,9 @@ function loadCSV ($filename) {
   /*Load data from CSV*/
   $file = fopen ($filename, "r");
   if (!$file) {
+
+    print  PHP_EOL . "Error: Unable to read CSV"  . PHP_EOL;
+
     return false;
   }
 
@@ -220,7 +223,7 @@ function run() {
 
   //process file name from command line
   if (array_key_exists  ("file", $options)) {
-    $CSVfile = options["file"];
+    $CSVfile = $options["file"];
   }
   else {
     $CSVfile = "users.csv"; // default file name to use if none specified
@@ -301,7 +304,7 @@ function run() {
   // Load CSV data
   $data = loadCSV ($CSVfile);
 
-  if (!$CSVfile) {
+  if (!$data) {
     print "Could not load CSV $CSVfile " . PHP_EOL;
     return;
   }
