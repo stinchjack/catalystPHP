@@ -201,10 +201,8 @@ function run() {
     $DBname= "catalystUsers"; // default if no DB name specified
   }
 
-
   // get dry_run flag from
   $dry_run = array_key_exists  ("dry_run", $options);
-
 
   // get create_table flag from
   $create_table = array_key_exists  ("create_table", $options);
@@ -248,7 +246,7 @@ function run() {
   if ($tableExists && $create_table) {
     print "\r\n Table 'users' already exists \r\n";
   }
-  
+
   //Always stop when create_table flag set
   if ($create_table) {
     return;
@@ -265,7 +263,11 @@ function run() {
   // Clean CSV data
   $data = cleanData ($data);
 
-
+  //Stop if dry_run flag set.
+  if ($dry_run) {
+    print "\r\n Dry run - no data inserted into table \r\n";
+    return;
+  }
 
 }
 
