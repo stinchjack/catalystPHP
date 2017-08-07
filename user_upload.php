@@ -32,7 +32,8 @@ function help() {
 
 function checkExpectedFlags ($argv){
   // Checks if there are unexpected flags passed to the script and display help
-  // text if there are
+  // text if there are. Its necessary to check for unexpected flags because the
+  // getopt function stops at the first unrecognised flag.
 
   $expectedFlags = array ("file", "dry_run", "u", "p", "h", "help", "dbname", "create_table");
 
