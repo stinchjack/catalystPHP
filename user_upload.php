@@ -7,7 +7,7 @@ Updated: 6 August 2017
 
 */
 
-run();
+run($argv);
 
 function help() {
   /*
@@ -30,13 +30,31 @@ function help() {
 
 }
 
-function checkExpectedFlags ($options){
+function checkExpectedFlags ($argv){
   // Checks if there are unexpected flags passed to the script and display help
   // text if there are
 
   $expectedFlags = array ("file", "dry_run", "u", "p", "h", "help", "dbname", "create_table");
+
+  foreach ($argv as $arg) {
+
+      $orig_arg = $arg;
+      $arg = str_replace('-', '', $arg);
+
+
+      if (!in_array($arg, $expectedFlags) && $orig_arg != $arg) {
+
+        print  PHP_EOL . "Unexpected flag $arg "  . PHP_EOL;
+        return false;
+      }
+
+  }
+
+  return true;
+
   foreach ($options as $option=>$value) {
-    if (! in_array($option, $expectedFlags)) {
+    var_dump ($option);
+    if (!in_array($option, $expectedFlags)) {
 
       var_dump ($option);
       print_r ($expectedFlags);
@@ -228,7 +246,7 @@ function insertData ($link, $rows) {
 }
 
 
-function run() {
+function run($argv) {
 
   /*
   The main function of the script
@@ -238,7 +256,7 @@ function run() {
   $options = getopt("u:p:h:",  array("dry_run", "file:", "create_table", "help", "dbname:"));
 
   // check for unexpcted flags in command line
-  if (!checkExpectedFlags ($options)) {
+  if (!checkExpectedFlags ($argv)) {
     help();
     return;
   }
