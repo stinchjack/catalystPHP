@@ -2,7 +2,7 @@
 
 ## Author: Jack Stinchcombe
 ### Email: stinchjack@gmail.com
-### Updated: 6 August 2017
+### Updated: 8 August 2017
 
 ## Description
 
@@ -15,11 +15,11 @@ Loads a CSV file with three columns (first name, surname, and email) into a data
 - There is a header row at the first row of the CSV.
 - There are no blank rows in the CSV.
 
-## Requirements:
+## Requirements
 - PHP 7.0, mysqli module
-- MySQL 5.4 or above
+- MySQL 5.6 or above
 
-## Installation:
+## Installation
 - Install PHP MySQL module if not already installed (e.g. sudo apt-get install php7.0-mysqli )
 - Create a MySQL database.
 
@@ -32,10 +32,10 @@ Loads a CSV file with three columns (first name, surname, and email) into a data
 
 See Command line Options, below.
 
-## Example usage:
+## Example usage
 - php user_upload.php -u john -p password
 
-## Command line options:
+## Command line options
 
 - --file [csv file name] - this is the name of the CSV to be parsed (default users.csv if not specified)
 - --create_table - this will cause the MySQL users table to be built (and no further action will be taken)
